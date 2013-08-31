@@ -11,15 +11,12 @@
       <th>Reference</th>
       <th>Amount</th>
       <th>Date</th>
-      <th></th>
-      <th></th>
-      <th></th>
     </tr>
   </thead>
 
   <tbody>
     <% @transactions.each do |transaction| %>
-      <tr>
+      <tr data-link="<%= transaction_path(transaction) %>">
         <td><%= transaction.trans_type %></td>
         <td><%= transaction.details %></td>
         <td><%= transaction.particulars %></td>
@@ -27,9 +24,6 @@
         <td><%= transaction.reference %></td>
         <td><%= number_to_currency(transaction.amount, :unit => "$") %></td>
         <td><%= transaction.date %></td>
-        <td><%= link_to 'Show', transaction %></td>
-        <td><%= link_to 'Edit', edit_transaction_path(transaction) %></td>
-        <td><%= link_to 'Destroy', transaction, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -41,6 +35,12 @@
 
     <div id="container" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
 <script type="text/javascript">
+
+
+$("tr[data-link]").click(function() {
+  window.location = this.dataset.link
+})
+
     $(function () {
         $('#container').highcharts({
             chart: {
