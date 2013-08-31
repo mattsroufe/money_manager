@@ -27,11 +27,9 @@
             <ul class="nav nav-list">
               <li class="nav-header">Transactions</li>
                 <li <%= is_active?(transactions_path) %> ><%= link_to 'All transactions', transactions_path %></li>
-                <li <%#= is_active?(new_consent_path) %> ><%#= link_to 'Consent Processing', new_consent_path %></li>
-                <li><a href="#">Maori participation</a></li>
                 <li><a href="#">Decision-making</a></li>
-              <li class="nav-header">Monitoring and Enforcement</li>
-                <li><a href="#">Monitoring and reporting</a></li>
+              <li class="nav-header">Categories</li>
+                <li <%= is_active?(categories_index_path) %> ><%= link_to 'Categories', categories_index_path %></li>
                 <li><a href="#">Compliance monitoring and complaints</a></li>
                 <li><a href="#">Enforcement decision-making</a></li>
                 <li><a href="#">Maori participation</a></li>

@@ -1,0 +1,25 @@
+<h2>Categories</h2>
+
+<table class="table table-condensed" style="width:33%">
+  <thead>
+    <tr>
+      <th style="width:66%"></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @categories.each do |category| %>
+      <tr>
+        <td><%= category.name %></td>
+        <td><%= link_to 'Edit', edit_transaction_path(@transaction) %></td>
+        <td><%= link_to 'Destroy', @transaction, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+  <%= link_to 'New Category', categories_new_path %>
+<br>
