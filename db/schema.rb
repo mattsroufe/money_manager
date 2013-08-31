@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130629232032) do
+ActiveRecord::Schema.define(version: 20130831052808) do
 
   create_table "transactions", force: true do |t|
     t.string   "trans_type",  limit: 20
@@ -20,7 +20,6 @@ ActiveRecord::Schema.define(version: 20130629232032) do
     t.string   "code",        limit: 20
     t.string   "reference",   limit: 20
     t.decimal  "amount",                 precision: 10, scale: 2
-    t.string   "string_date", limit: 10
     t.date     "date"
     t.datetime "created_at"
     t.datetime "updated_at"
