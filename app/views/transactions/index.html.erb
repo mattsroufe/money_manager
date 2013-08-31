@@ -4,26 +4,18 @@
 <table class="table table-bordered table-condensed table-striped table-hover" style="width:95%">
   <thead>
     <tr>
-      <th>Type</th>
-      <th>Details</th>
-      <th>Particulars</th>
-      <th>Code</th>
-      <th>Reference</th>
-      <th>Amount</th>
       <th>Date</th>
+      <th>Details</th>
+      <th>Amount</th>
     </tr>
   </thead>
 
   <tbody>
     <% @transactions.each do |transaction| %>
       <tr data-link="<%= transaction_path(transaction) %>">
-        <td><%= transaction.trans_type %></td>
-        <td><%= transaction.details %></td>
-        <td><%= transaction.particulars %></td>
-        <td><%= transaction.code %></td>
-        <td><%= transaction.reference %></td>
-        <td><%= number_to_currency(transaction.amount, :unit => "$") %></td>
         <td><%= transaction.date %></td>
+        <td><%= transaction.trans_type =~ /^[Vv]isa\b/ ? transaction.code : transaction.details %></td>
+        <td><%= number_to_currency(transaction.amount, :unit => "$") %></td>
       </tr>
     <% end %>
   </tbody>
