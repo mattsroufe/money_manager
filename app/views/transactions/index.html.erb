@@ -17,7 +17,7 @@
         <td><%= transaction.date %></td>
         <td><%= transaction.trans_type =~ /^[Vv]isa\b/ ? transaction.code : transaction.details %></td>
         <td><%= number_to_currency(transaction.amount) %></td>
-        <td><%= transaction.category.name if transaction.category %></td>
+        <td><%= transaction.category_name if transaction.category %></td>
       </tr>
     <% end %>
   </tbody>
