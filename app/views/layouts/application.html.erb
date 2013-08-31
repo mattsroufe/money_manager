@@ -10,26 +10,57 @@
     <%= yield(:head) %>
   </head>
   <body class="<%= controller_name %> <%= action_name %>">
-    <div class="navbar navbar-fixed-top">
+    
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
       <nav class="navbar-inner">
-        <div class="container">
+        <div class="container-fluid">
           <%= render 'layouts/navigation' %>
         </div>
       </nav>
     </div>
-    <div id="main" role="main">
-      <div class="container">
-        <div class="content">
-           <div class="row">
-            <div class="span12">
-              <%= render 'layouts/messages' %>
-              <%= yield %>
-            </div>
-          </div>
-          <footer>
-          </footer>
-        </div>
-      </div> <!--! end of .container -->
-    </div> <!--! end of #main -->
+
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span3">
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+              <li class="nav-header">Transactions</li>
+                <li <%= is_active?(transactions_path) %> ><%= link_to 'All transactions', transactions_path %></li>
+                <li <%#= is_active?(new_consent_path) %> ><%#= link_to 'Consent Processing', new_consent_path %></li>
+                <li><a href="#">Maori participation</a></li>
+                <li><a href="#">Decision-making</a></li>
+              <li class="nav-header">Monitoring and Enforcement</li>
+                <li><a href="#">Monitoring and reporting</a></li>
+                <li><a href="#">Compliance monitoring and complaints</a></li>
+                <li><a href="#">Enforcement decision-making</a></li>
+                <li><a href="#">Maori participation</a></li>
+                <li><a href="#">Resources</a></li>
+              <li class="nav-header">Plan Changes and Variations</li>
+                <li><a href="#">Plan changes to operative plans</a></li>
+                <li><a href="#">Variations to proposed plans</a></li>
+                <li><a href="#">Designations and notices of requirement</a></li>
+                <li><a href="#">Plan and Policy reviews</a></li>
+                <li><a href="#">Maori participation</a></li>
+              <li class="nav-header">National Policy Statements (NPS) and National Environmental Standards (NES)</li>
+                <li><a href="#">NPS &amp; NES implementation</a></li>
+                <li><a href="#">NES for Assessing and Managing Contaminants in Soil to Protect Human Health</a>
+            </ul>
+          </div><!--/.well -->
+        </div><!--/span-->
+        <div class="span9">
+          <%= render 'layouts/messages' %>
+          <%= yield %>
+
+      </div><!--/span-->
+    </div><!--/row-->
+
+      <hr>
+
+      <footer>
+        <p>&copy; Company 2013</p>
+      </footer>
+
+    </div><!--/.fluid-container-->
   </body>
 </html>
