@@ -1,5 +1,5 @@
 class Transaction < ActiveRecord::Base
-  attr_accessible :trans_type, :details, :particulars, :code, :reference, :amount, :string_date, :date
+  attr_accessible :trans_type, :details, :particulars, :code, :reference, :amount, :date
 
   def self.import(file)
     CSV.foreach(file.path, :row_sep => :auto, :col_sep => ",") do |row|
