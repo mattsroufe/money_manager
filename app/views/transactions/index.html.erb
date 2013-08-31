@@ -7,6 +7,7 @@
       <th>Date</th>
       <th>Details</th>
       <th>Amount</th>
+      <th>Category</th>
     </tr>
   </thead>
 
@@ -15,7 +16,8 @@
       <tr data-link="<%= transaction_path(transaction) %>">
         <td><%= transaction.date %></td>
         <td><%= transaction.trans_type =~ /^[Vv]isa\b/ ? transaction.code : transaction.details %></td>
-        <td><%= number_to_currency(transaction.amount, :unit => "$") %></td>
+        <td><%= number_to_currency(transaction.amount) %></td>
+        <td><%= transaction.category.name if transaction.category %></td>
       </tr>
     <% end %>
   </tbody>
