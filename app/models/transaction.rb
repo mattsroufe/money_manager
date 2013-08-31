@@ -9,7 +9,7 @@ class Transaction < ActiveRecord::Base
                           :code => row[3],
                           :reference => row[4],
                           :amount => row[5],
-                          :date => Date.parse(row[6], "%d-%m-%Y")
+                          :date => row[6]
     end
   end
 
