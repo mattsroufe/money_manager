@@ -100,7 +100,7 @@ $("tr[data-link]").click(function() {
 
 <h3>Import transactions</h3>
 
-<%= form_tag import_transactions_path, multipart: true do %>
-  <%= file_field_tag :file %>
+<%= form_tag import_transactions_path, multipart: true, class: "form-horizontal" do %>
+  <%= file_field_tag "file_upload", class: "input", :multiple => true %>
   <%= submit_tag "Import" %>
 <% end %>

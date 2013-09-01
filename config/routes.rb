@@ -1,6 +1,6 @@
 MoneyManager::Application.routes.draw do
-  get "categories/index"
-  get "categories/new"
+
+  resources :categories
 
   root :to => "transactions#index"
 
