@@ -1,4 +1,11 @@
-<h2>Listing transactions</h2>
+<div class="row-fluid">
+  <div class="span9">
+    <h2>Transactions</h2>
+  </div>
+  <div class="span3">
+    <h4>Total savings: <%= number_to_currency Balance.last.daily %></h4>
+  </div>
+</div>
 
 <%= paginate @transactions %>
 <table class="table table-bordered table-condensed table-striped table-hover">
