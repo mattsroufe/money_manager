@@ -5,7 +5,6 @@ class TransactionsController < ApplicationController
   # GET /transactions.json
   def index
     @transactions = Transaction.order("date DESC").page(params[:page]).per(10)
-    @data = Transaction.monthly_balances
   end
 
   # GET /transactions/1

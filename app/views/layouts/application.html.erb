@@ -27,22 +27,10 @@
             <ul class="nav nav-list">
               <li class="nav-header">Transactions</li>
                 <li <%= is_active?(transactions_path) %> ><%= link_to 'All transactions', transactions_path %></li>
-                <li><a href="#">Decision-making</a></li>
               <li class="nav-header">Categories</li>
                 <li <%= is_active?(categories_path) %> ><%= link_to 'Categories', categories_path %></li>
-                <li><a href="#">Compliance monitoring and complaints</a></li>
-                <li><a href="#">Enforcement decision-making</a></li>
-                <li><a href="#">Maori participation</a></li>
-                <li><a href="#">Resources</a></li>
-              <li class="nav-header">Plan Changes and Variations</li>
-                <li><a href="#">Plan changes to operative plans</a></li>
-                <li><a href="#">Variations to proposed plans</a></li>
-                <li><a href="#">Designations and notices of requirement</a></li>
-                <li><a href="#">Plan and Policy reviews</a></li>
-                <li><a href="#">Maori participation</a></li>
-              <li class="nav-header">National Policy Statements (NPS) and National Environmental Standards (NES)</li>
-                <li><a href="#">NPS &amp; NES implementation</a></li>
-                <li><a href="#">NES for Assessing and Managing Contaminants in Soil to Protect Human Health</a>
+              <li class="nav-header">Cashflows</li>
+                <li <%= is_active?(cashflows_index_path) %> ><%= link_to 'Cashflows', cashflows_index_path %></li>
             </ul>
           </div><!--/.well -->
         </div><!--/span-->

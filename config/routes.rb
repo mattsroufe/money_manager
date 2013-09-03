@@ -1,5 +1,6 @@
 MoneyManager::Application.routes.draw do
 
+  get "cashflows/index"
   resources :categories
 
   root :to => "transactions#index"
