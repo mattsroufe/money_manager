@@ -3,7 +3,7 @@
     <h2>Transactions</h2>
   </div>
   <div class="span3">
-    <h4>Total savings: <%= number_to_currency Balance.last.daily %></h4>
+    <h4>Total savings: <%= number_to_currency Transaction.sum(:amount) %></h4>
   </div>
 </div>
 
@@ -107,7 +107,7 @@ $("tr[data-link]").click(function() {
 
 <h3>Import transactions</h3>
 
-<%= form_tag import_transactions_path, multipart: true, class: "form-horizontal" do %>
-  <%= file_field_tag "file_upload", class: "input", :multiple => true %>
-  <%= submit_tag "Import" %>
+<%= form_tag import_transactions_path, multipart: true do %>
+  <%= file_field_tag "file" %>
+  <%= submit_tag "Import", class: "btn btn-primary" %>
 <% end %>
