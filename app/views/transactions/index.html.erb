@@ -34,30 +34,34 @@
     <% end %>
   </tbody>
 </table>
+
 <%= paginate @transactions %>
 
 <%= link_to 'New Transaction', new_transaction_path %>
-<br>
 
-    <div id="container" ></div>
+<div id="container" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
 <script type="text/javascript">
 
 
-    $("tr[data-link]").click(function() {
-        window.location = this.dataset.link
-    })
+$("tr[data-link]").click(function() {
+  window.location = this.dataset.link
+})
 
     $(function () {
         $('#container').highcharts({
             chart: {
                 zoomType: 'x',
+                spacingRight: 20
             },
             title: {
                 text: 'Monthly balance: 2011 - Present'
             },
             xAxis: {
                 type: 'datetime',
-                maxZoom: 28 * 24 * 3600000, // fourteen days
+                maxZoom: 14 * 24 * 3600000, // fourteen days
+                title: {
+                    text: null
+                }
             },
             yAxis: {
                 title: {
@@ -71,7 +75,30 @@
             legend: {
                 enabled: false
             },
+            plotOptions: {
+                area: {
+                    fillColor: {
+                        linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1},
+                        stops: [
+                            [0, Highcharts.getOptions().colors[0]],
+                            [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                        ]
+                    },
+                    lineWidth: 1,
+                    marker: {
+                        enabled: false
+                    },
+                    shadow: false,
+                    states: {
+                        hover: {
+                            lineWidth: 1
+                        }
+                    },
+                    threshold: null
+                }
+            },
             series: [{
+                type: 'area',
                 name: 'Balance',
                 data: [
                   <% @data.each do |date, value| %>
