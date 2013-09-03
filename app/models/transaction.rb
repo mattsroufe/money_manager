@@ -23,7 +23,9 @@ class Transaction < ActiveRecord::Base
     end
   end
 
-  # def self.monthly_balances
-  #   transactions = Transaction.group("YEAR(date)").group("MONTH(date)").sum(:amount)
-  # end  
+  def self.monthly_balances
+    transactions = Transaction.group("YEAR(date)").group("MONTH(date)").sum(:amount)
+    balance = 0
+    Hash[transactions.map { |k, v| [Date.new(k[0],k[1]).end_of_month, balance += v] }]
+  end  
 end

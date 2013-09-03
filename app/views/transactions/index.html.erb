@@ -7,7 +7,6 @@
   </div>
 </div>
 
-<%= paginate @transactions %>
 <table class="table table-bordered table-condensed table-striped table-hover">
   <thead>
     <tr>
@@ -35,34 +34,30 @@
     <% end %>
   </tbody>
 </table>
+<%= paginate @transactions %>
 
-<br>
-  <%= link_to 'New Transaction', new_transaction_path %>
+<%= link_to 'New Transaction', new_transaction_path %>
 <br>
 
-    <div id="container" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+    <div id="container" ></div>
 <script type="text/javascript">
 
 
-$("tr[data-link]").click(function() {
-  window.location = this.dataset.link
-})
+    $("tr[data-link]").click(function() {
+        window.location = this.dataset.link
+    })
 
     $(function () {
         $('#container').highcharts({
             chart: {
                 zoomType: 'x',
-                spacingRight: 20
             },
             title: {
-                text: 'Daily balance: 2011 - Present'
+                text: 'Monthly balance: 2011 - Present'
             },
             xAxis: {
                 type: 'datetime',
-                maxZoom: 14 * 24 * 3600000, // fourteen days
-                title: {
-                    text: null
-                }
+                maxZoom: 28 * 24 * 3600000, // fourteen days
             },
             yAxis: {
                 title: {
@@ -76,34 +71,11 @@ $("tr[data-link]").click(function() {
             legend: {
                 enabled: false
             },
-            plotOptions: {
-                area: {
-                    fillColor: {
-                        linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1},
-                        stops: [
-                            [0, Highcharts.getOptions().colors[0]],
-                            [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
-                        ]
-                    },
-                    lineWidth: 1,
-                    marker: {
-                        enabled: false
-                    },
-                    shadow: false,
-                    states: {
-                        hover: {
-                            lineWidth: 1
-                        }
-                    },
-                    threshold: null
-                }
-            },
             series: [{
-                type: 'area',
                 name: 'Balance',
                 data: [
                   <% @data.each do |date, value| %>
-                  <%= "[Date.UTC(#{(date - 1.month).to_s.gsub(/\-/,',')}), #{value}]," if date %>
+                  <%= "[Date.UTC(#{(date - 1.month).to_s.gsub(/\-/,',')}), #{value}]," %>
                   <% end %>
                 ]
             }]
