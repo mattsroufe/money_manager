@@ -22,7 +22,13 @@
     <% @transactions.each do |transaction| %>
       <tr data-link="<%= transaction_path(transaction) %>">
         <td><%= transaction.date %></td>
-        <td><%= transaction.trans_type =~ /^[Vv]isa\b/ ? transaction.code : transaction.details %></td>
+        <td><%= if transaction.trans_type =~ /^[Vv]isa\b/
+                  transaction.code
+                elsif transaction.trans_type == 'Credit Interest Paid' || transaction.trans_type == 'Withholding Tax'
+                  transaction.trans_type
+                else
+                  transaction.details
+                end %></td>
         <td><%= number_to_currency(transaction.amount) %></td>
         <td><%= transaction.category_name if transaction.category %></td>
       </tr>
