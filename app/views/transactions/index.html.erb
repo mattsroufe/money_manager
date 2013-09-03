@@ -12,7 +12,8 @@
     <tr>
       <th>Date</th>
       <th>Details</th>
-      <th>Amount</th>
+      <th>Income</th>
+      <th>Expense</th>
       <th>Category</th>
     </tr>
   </thead>
@@ -28,7 +29,8 @@
                 else
                   transaction.details
                 end %></td>
-        <td><%= number_to_currency(transaction.amount) %></td>
+        <td><%= number_to_currency(transaction.amount) if transaction.amount > 0 %></td>
+        <td><%= number_to_currency(-transaction.amount) if transaction.amount < 0 %></td>
         <td><%= transaction.category_name if transaction.category %></td>
       </tr>
     <% end %>
