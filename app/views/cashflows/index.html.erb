@@ -56,9 +56,10 @@
                 }
             },
             series: [{
-                type: 'area',
+                type: 'line',
                 name: 'Balance',
                 data: [
+                  <%= "[Date.UTC(#{(@data[0][0] - 2.months).to_s.gsub(/\-/,',')}), 0]," %>
                   <% @data.each do |date, value| %>
                   <%= "[Date.UTC(#{(date - 1.month).to_s.gsub(/\-/,',')}), #{value}]," %>
                   <% end %>
@@ -72,7 +73,7 @@
 //         chart: {
 //         },
 //         xAxis: {
-//             categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+//             categories: <%= "['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']".html_safe %>
 //         },
         
 //         series: [{

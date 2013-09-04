@@ -1,11 +1,20 @@
 <div class="row-fluid">
-  <div class="span9">
+  <div class="span3">
     <h2>Transactions</h2>
   </div>
+  <div class="span5 offset1">
+    <%= form_for transactions_path, :method => 'get', :html => { :class => "form-search", :style => "margin:15px 0 0" } do %>
+      <%= text_field_tag :search, params[:search], :class => "search-query", :style => "margin-bottom:0" %>
+      <%= submit_tag "Search", :details => nil, :class => "btn" %>
+    <% end %>
+  </div>
   <div class="span3">
-    <h4>Total savings: <%= number_to_currency Transaction.sum(:amount) %></h4>
+    <h4 style="margin:15px 0 0">Balance: <%= number_to_currency Transaction.sum(:amount) %></h4>
   </div>
 </div>
+
+
+
 
 <table class="table table-bordered table-condensed table-striped table-hover">
   <thead>

@@ -26,6 +26,15 @@ class Transaction < ActiveRecord::Base
   def self.monthly_balances
     transactions = Transaction.group("YEAR(date)").group("MONTH(date)").sum(:amount)
     balance = 0
-    Hash[transactions.map { |k, v| [Date.new(k[0],k[1]).end_of_month, balance += v] }]
-  end  
+    # Hash[transactions.map { |k, v| [Date.new(k[0],k[1]).end_of_month, balance += v] }]
+    transactions.map { |k, v| [Date.new(k[0],k[1]).end_of_month, balance += v] }
+  end
+
+  def self.search(search)
+    if search
+      where('details LIKE ?', "%#{search}%")
+    else
+      scoped
+    end
+  end
 end

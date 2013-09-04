@@ -4,7 +4,7 @@ class TransactionsController < ApplicationController
   # GET /transactions
   # GET /transactions.json
   def index
-    @transactions = Transaction.order("date DESC").page(params[:page]).per(10)
+    @transactions = Transaction.search(params[:search]).order("date DESC").page(params[:page]).per(10)
   end
 
   # GET /transactions/1
