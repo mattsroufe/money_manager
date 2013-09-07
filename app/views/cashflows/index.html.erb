@@ -1,12 +1,12 @@
 <h1>Cashflows#index</h1>
 <p>Find me in app/views/cashflows/index.html.erb</p>
 
+<div id="container-line" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
 <div id="container" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
-<!-- <div id="container-line" style="min-width: 400px; height: 400px; margin: 0 auto"></div> -->
 
 <script type="text/javascript">
     $(function () {
-        $('#container').highcharts({
+        $('#container-line').highcharts({
             chart: {
                 zoomType: 'x',
                 spacingRight: 20
@@ -81,4 +81,29 @@
 //         }]
 //     });
 // });
+
+$(function () {
+        $('#container').highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Column chart with negative values'
+            },
+            xAxis: {
+                categories: ['10/11']
+            },
+            credits: {
+                enabled: false
+            },
+            series: [{
+                name: 'Monthly cashflow',
+                data: [
+                  <% @cashflow.each do |date, value| %>
+                    <%= "#{value},".html_safe %>
+                  <% end %>
+                ]
+            }]
+        });
+    });
 </script>

@@ -30,6 +30,11 @@ class Transaction < ActiveRecord::Base
     transactions.map { |k, v| [Date.new(k[0],k[1]).end_of_month, balance += v] }
   end
 
+  def self.monthly_cashflow
+    transactions = Transaction.group("YEAR(date)").group("MONTH(date)").sum(:amount)
+    transactions.map { |k, v| [Date.new(k[0],k[1]).end_of_month, v] }
+  end
+
   def self.search(search)
     if search
       where('details LIKE ?', "%#{search}%")
