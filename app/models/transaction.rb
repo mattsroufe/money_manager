@@ -44,7 +44,7 @@ class Transaction < ActiveRecord::Base
   end
 
   def self.by_category(category)
-    return Transaction.where(:category_id => category)
+    return Transaction.where(:category_id => category) if category.present?
     all
   end
 end
