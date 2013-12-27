@@ -1,0 +1,29 @@
+<table class="table table-bordered table-condensed table-striped table-hover">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Details</th>
+      <th>Income</th>
+      <th>Expense</th>
+      <th>Category</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @transactions.each do |transaction| %>
+      <tr data-link="<%= transaction_path(transaction) %>">
+        <td><%= transaction.date %></td>
+        <td><%= if transaction.trans_type =~ /^[Vv]isa\b/
+                  transaction.code
+                elsif transaction.trans_type == 'Credit Interest Paid' || transaction.trans_type == 'Withholding Tax'
+                  transaction.trans_type
+                else
+                  transaction.details
+                end %></td>
+        <td><%= number_to_currency(transaction.amount) if transaction.amount > 0 %></td>
+        <td><%= number_to_currency(-transaction.amount) if transaction.amount < 0 %></td>
+        <td><%= transaction.category_name if transaction.category %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

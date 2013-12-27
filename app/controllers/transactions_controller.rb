@@ -1,14 +1,14 @@
 class TransactionsController < ApplicationController
   before_action :set_transaction, only: [:show, :edit, :update, :destroy]
 
-  # GET /transactions
-  # GET /transactions.json
   def index
-    @transactions = Transaction.search(params[:search]).order("date DESC").page(params[:page]).per(10)
+    @transactions = Transaction.search(params[:search]).order("date DESC, amount DESC").page(params[:page]).per(10)
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
-  # GET /transactions/1
-  # GET /transactions/1.json
   def show
   end
 

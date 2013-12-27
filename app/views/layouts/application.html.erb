@@ -20,32 +20,27 @@
       </nav>
     </div>
 
-    <div class="container-fluid">
+    <div class="container">
       <div class="row-fluid">
-        <div class="span3">
-          <div class="well sidebar-nav">
-            <ul class="nav nav-list">
-              <li class="nav-header">Transactions</li>
-                <li <%= is_active?(transactions_path) %> ><%= link_to 'All transactions', transactions_path %></li>
-              <li class="nav-header">Categories</li>
-                <li <%= is_active?(categories_path) %> ><%= link_to 'Categories', categories_path %></li>
-              <li class="nav-header">Cashflows</li>
-                <li <%= is_active?(cashflows_index_path) %> ><%= link_to 'Cashflows', cashflows_index_path %></li>
-            </ul>
-          </div><!--/.well -->
-        </div><!--/span-->
-        <div class="span9">
-          <%= render 'layouts/messages' %>
-          <%= yield %>
+        <ul class="nav nav-tabs">
+          <li <%= is_active?(transactions_path) %> ><%= link_to 'All transactions', transactions_path %></li>
+          <li <%= is_active?(categories_path) %> ><%= link_to 'Categories', categories_path %></li>
+          <li <%= is_active?(cashflows_index_path) %> ><%= link_to 'Cashflows', cashflows_index_path %></li>
+        </ul>
+      </div><!--/row-->
+      <div class="row-fluid">
+        <%= render 'layouts/messages' %>
+        <%= yield %>
 
       </div><!--/span-->
-    </div><!--/row-->
-
+      
       <hr>
 
       <footer>
         <p>&copy; Company 2013</p>
       </footer>
+
+    </div><!--/row-->
 
     </div><!--/.fluid-container-->
   </body>

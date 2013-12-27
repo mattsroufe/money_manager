@@ -1,0 +1,2 @@
+$('table').html('<%= j render 'transactions_table' %>');
+$('div.pagination').html('<%= j paginate @transactions, :remote => true %>');

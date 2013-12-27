@@ -32,14 +32,14 @@ class Transaction < ActiveRecord::Base
 
   def self.monthly_cashflow
     transactions = Transaction.group("YEAR(date)").group("MONTH(date)").sum(:amount)
-    transactions.map { |k, v| [Date.new(k[0],k[1]).end_of_month, v] }
+    transactions.map { |k, v| [k[1], v] }
   end
 
   def self.search(search)
     if search
       where('details LIKE ?', "%#{search}%")
     else
-      scoped
+      Transaction.all
     end
   end
 end
