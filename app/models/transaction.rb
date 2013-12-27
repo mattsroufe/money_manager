@@ -42,4 +42,9 @@ class Transaction < ActiveRecord::Base
       Transaction.all
     end
   end
+
+  def self.by_category(category)
+    return Transaction.where(:category_id => category)
+    all
+  end
 end

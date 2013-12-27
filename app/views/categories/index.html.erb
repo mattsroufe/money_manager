@@ -11,7 +11,7 @@
 
   <tbody>
     <% @categories.each do |category| %>
-      <tr>
+      <tr data-link="<%= transactions_path(:category_id => category) %>">
         <td><%= category.name %></td>
         <td><%= link_to 'Edit', edit_category_path(category) %></td>
         <td><%= link_to 'Delete', category, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -23,3 +23,5 @@
 <br>
   <%= link_to 'New Category', new_category_path %>
 <br>
+
+<%= javascript_include_tag 'application' %>

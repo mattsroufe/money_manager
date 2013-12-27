@@ -2,7 +2,7 @@ class TransactionsController < ApplicationController
   before_action :set_transaction, only: [:show, :edit, :update, :destroy]
 
   def index
-    @transactions = Transaction.search(params[:search]).order("date DESC, amount DESC").page(params[:page]).per(10)
+    @transactions = Transaction.search(params[:search]).by_category(params[:category_id]).order("date DESC, amount DESC").page(params[:page]).per(10)
     respond_to do |format|
       format.html
       format.js
