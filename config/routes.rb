@@ -1,5 +1,6 @@
 MoneyManager::Application.routes.draw do
 
+  get "budgets/show"
   get "cashflows/index"
   resources :categories
 
