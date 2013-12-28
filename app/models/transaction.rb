@@ -15,6 +15,28 @@ class Transaction < ActiveRecord::Base
     end
   end
 
+  def self.on_or_after(date)
+    where('date >= ?', date)
+  end
+
+  def self.on_or_before(date)
+    where('date < ?', date.tomorrow)
+  end
+
+  def self.between(dates = {})
+    begin
+      start_date = dates[:start_date].to_date if dates[:start_date]
+      end_date = dates[:end_date].to_date if dates[:end_date]
+    rescue
+      raise ArgumentError, "Invalid Date"
+    else
+      return on_or_after(start_date).on_or_before(end_date) if start_date && end_date
+      return on_or_after(start_date) if start_date
+      return on_or_before(end_date) if end_date
+      all
+    end
+  end
+
   def self.daily_balances
     transactions = Transaction.group(:date).sum(:amount)
     balance = 0
