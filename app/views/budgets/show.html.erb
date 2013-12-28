@@ -1,2 +1,20 @@
-<h1>Budgets#show</h1>
-<p>Find me in app/views/budgets/show.html.erb</p>
+<h1><%= Time.now.year %> Budget</h1>
+
+<table class="table table-bordered table-condensed table-striped table-hover">
+  <thead>
+    <tr>
+      <th></th>
+      <% @months.each do |month| %>
+        <th style="text-align:center"><%= month %></th>
+      <% end %>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% Category.all.each do |category| %>
+      <tr>
+        <td><%= category.name %></td>
+      </tr>
+    <% end %>  
+  </tbody>
+</table>

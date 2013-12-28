@@ -9,6 +9,7 @@ gem 'jquery-ui-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 gem 'kaminari'
+gem 'byebug'
 group :doc do
   gem 'sdoc', require: false
 end
