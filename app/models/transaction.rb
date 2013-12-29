@@ -2,6 +2,7 @@ class Transaction < ActiveRecord::Base
   attr_accessible :trans_type, :details, :particulars, :code, :reference, :amount, :date, :category_id
   belongs_to :category
   delegate :name, :to => :category, :prefix => true, :allow_nil => true
+  scope :income, -> { where("amount > 0") }
 
   def self.import(file)
     CSV.foreach(file.path, :row_sep => :auto, :col_sep => ",") do |row|
