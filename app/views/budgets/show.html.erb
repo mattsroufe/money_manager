@@ -5,7 +5,7 @@
     <tr>
       <th></th>
       <% @months.each do |month| %>
-        <th style="text-align:center"><%= month %></th>
+        <th style="text-align:center"><%= month.strftime('%b') %></th>
       <% end %>
     </tr>
   </thead>
@@ -14,7 +14,16 @@
     <% Category.all.each do |category| %>
       <tr>
         <td><%= category.name %></td>
+        <% @months.each do |month| %>
+          <td><%= number_to_currency category.transactions.for_month_of(month).sum(:amount) %></td>
+        <% end %>
       </tr>
     <% end %>  
+    <tr>
+      <td>Total</td>
+      <% @months.each do |month| %>
+        <td><%= number_to_currency Transaction.for_month_of(month).sum(:amount) %></td>
+      <% end %>
+    </tr>
   </tbody>
 </table>

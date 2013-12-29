@@ -37,6 +37,10 @@ class Transaction < ActiveRecord::Base
     end
   end
 
+  def self.for_month_of(date)
+    between(:start_date => date.beginning_of_month, :end_date => date.end_of_month)
+  end
+
   def self.daily_balances
     transactions = Transaction.group(:date).sum(:amount)
     balance = 0
