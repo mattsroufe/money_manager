@@ -8,25 +8,49 @@
         <th style="text-align:center"><%= month.strftime('%b') %></th>
       <% end %>
     </tr>
-    <tr style="background-color:black; color:white;"><td colspan="13" style="border-color:black">Income</td></tr>
-    <tr><td></td></tr>
-    <tr style="background-color:black; color:white;"><td colspan="13" style="border-color:black">Expense</td></tr>
   </thead>
 
   <tbody>
+    <tr><td colspan="13" style="background-color:black; color:white; border-color:black">Income</td></tr>
+
     <% Category.all.each do |category| %>
+      <% if category.transactions.income.any? %>
       <tr>
         <td><%= category.name %></td>
         <% @months.each do |month| %>
           <td id="<%= month.strftime('%b') + ' ' + category.name %>"><%= number_to_currency category.transactions.for_month_of(month).sum(:amount) %></td>
         <% end %>
       </tr>
-    <% end %>  
+    <% end %>
+    <% end %>
+
+    <tr>
+      <td>Total</td>
+      <% @months.each do |month| %>
+        <td><%= number_to_currency Transaction.income.for_month_of(month).sum(:amount) %></td>
+      <% end %>
+    </tr>
+
+    <tr><td colspan="13"></td></tr>
+    <tr><td colspan="13" style="background-color:black; color:white; border-color:black">Expense</td></tr>
+
+    <% Category.all.each do |category| %>
+    <% if category.transactions.expense.any? %>
+      <tr>
+        <td><%= category.name %></td>
+        <% @months.each do |month| %>
+          <td id="<%= month.strftime('%b') + ' ' + category.name %>"><%= number_to_currency category.transactions.for_month_of(month).sum(:amount) %></td>
+        <% end %>
+      </tr>
+    <% end %>
+    <% end %>
+
     <tr>
       <td>Total</td>
       <% @months.each do |month| %>
         <td><%= number_to_currency Transaction.for_month_of(month).sum(:amount) %></td>
       <% end %>
     </tr>
+
   </tbody>
 </table>

@@ -3,6 +3,8 @@ class Transaction < ActiveRecord::Base
   belongs_to :category
   delegate :name, :to => :category, :prefix => true, :allow_nil => true
   scope :income, -> { where("amount > 0") }
+  scope :expense, -> { where("amount < 0") }
+  scope :amount, -> { sum(:amount) }
 
   def self.import(file)
     CSV.foreach(file.path, :row_sep => :auto, :col_sep => ",") do |row|
