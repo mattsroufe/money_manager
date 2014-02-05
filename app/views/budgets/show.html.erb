@@ -14,11 +14,11 @@
     <tr><td colspan="13" style="background-color:black; color:white; border-color:black">Income</td></tr>
 
     <% Category.all.each do |category| %>
-      <% if category.transactions.income.any? %>
+      <% if category.transactions.last_12_months.income.any? %>
       <tr>
         <td><%= category.name %></td>
         <% @months.each do |month| %>
-          <td id="<%= month.strftime('%b') + ' ' + category.name %>"><%= number_to_currency category.transactions.for_month_of(month).sum(:amount) %></td>
+          <td id="<%= month.strftime('%b') + ' ' + category.name %>" style="text-align:right"><%= number_to_currency category.transactions.for_month_of(month).sum(:amount) %></td>
         <% end %>
       </tr>
     <% end %>
@@ -27,7 +27,7 @@
     <tr>
       <td>Total</td>
       <% @months.each do |month| %>
-        <td><%= number_to_currency Transaction.income.for_month_of(month).sum(:amount) %></td>
+        <td style="text-align:right"><%= number_to_currency Transaction.income.for_month_of(month).sum(:amount) %></td>
       <% end %>
     </tr>
 
@@ -35,11 +35,11 @@
     <tr><td colspan="13" style="background-color:black; color:white; border-color:black">Expense</td></tr>
 
     <% Category.all.each do |category| %>
-    <% if category.transactions.expense.any? %>
+    <% if category.transactions.last_12_months.expense.any? %>
       <tr>
         <td><%= category.name %></td>
         <% @months.each do |month| %>
-          <td id="<%= month.strftime('%b') + ' ' + category.name %>"><%= number_to_currency category.transactions.for_month_of(month).sum(:amount) %></td>
+          <td id="<%= month.strftime('%b') + ' ' + category.name %>" style="text-align:right"><%= number_to_currency category.transactions.for_month_of(month).sum(:amount) %></td>
         <% end %>
       </tr>
     <% end %>
@@ -48,7 +48,7 @@
     <tr>
       <td>Total</td>
       <% @months.each do |month| %>
-        <td><%= number_to_currency Transaction.for_month_of(month).sum(:amount) %></td>
+        <td style="text-align:right"><%= number_to_currency Transaction.for_month_of(month).sum(:amount) %></td>
       <% end %>
     </tr>
 

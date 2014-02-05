@@ -26,6 +26,10 @@ class Transaction < ActiveRecord::Base
     where('date < ?', date.tomorrow)
   end
 
+  def self.last_12_months
+    where('date >= ?', 11.month.ago.beginning_of_month)
+  end
+
   def self.between(dates = {})
     begin
       start_date = dates[:start_date].to_date if dates[:start_date]
