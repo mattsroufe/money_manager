@@ -10,6 +10,7 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 gem 'kaminari'
 gem 'byebug'
+gem 'hirb'
 group :doc do
   gem 'sdoc', require: false
 end
