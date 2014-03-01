@@ -1,9 +1,17 @@
 class BudgetsController < ApplicationController
   def show
-    months = []
-    for i in 0..11 do
-      months << (Time.now - i.month - 1.month)
+    hash = {}
+    transactions = Transaction.includes(:category).
+      where("date >= ?", (Date.today - 1.year).beginning_of_month.beginning_of_month).
+      where("date < ?", Date.today.beginning_of_month).
+      group("YEAR(date)", "MONTH(date)", :name).
+      sum(:amount)
+    transactions.each do |transaction|
+      month = Date::MONTHNAMES[transaction[0][1]]
+      hash[month] ||= {}
+      hash[month][transaction[0][2]] = transaction[1]
     end
-    @months = months.reverse
+    @transactions = hash
+    @categories = Category.pluck(:name)
   end
 end

@@ -1,11 +1,11 @@
-<h1><%= Time.now.year %> Budget</h1>
+<h2>Income statement - Last 12 months</h2>
 
 <table class="table table-bordered table-condensed table-striped table-hover">
   <thead>
     <tr>
       <th></th>
-      <% @months.each do |month| %>
-        <th style="text-align:center"><%= month.strftime('%b') %></th>
+      <% @transactions.keys.each do |month| %>
+        <th style="text-align:center"><%= month %></th>
       <% end %>
     </tr>
   </thead>
@@ -13,44 +13,59 @@
   <tbody>
     <tr><td colspan="13" style="background-color:black; color:white; border-color:black">Income</td></tr>
 
-    <% Category.all.each do |category| %>
-      <% if category.transactions.last_12_months.income.any? %>
+    <% ["Salary", "Interest"].each do |category| %>
       <tr>
-        <td><%= category.name %></td>
-        <% @months.each do |month| %>
-          <td id="<%= month.strftime('%b') + ' ' + category.name %>" style="text-align:right"><%= number_to_currency category.transactions.for_month_of(month).sum(:amount) %></td>
+        <td><%= category %></td>
+        <% @transactions.keys.each do |month| %>
+          <td id="<%= [month, category].join(' ').parameterize %>" style="text-align:right"><%= number_to_currency @transactions[month][category] %></td>
         <% end %>
       </tr>
-    <% end %>
     <% end %>
 
     <tr>
       <td>Total</td>
-      <% @months.each do |month| %>
-        <td style="text-align:right"><%= number_to_currency Transaction.income.for_month_of(month).sum(:amount) %></td>
+      <% @transactions.keys.each do |month| %>
+        <% total = 0 %>
+        <% ["Salary", "Interest"].each do |category| %>
+          <% total += @transactions[month][category] %>
+        <% end %>
+        <td style="text-align:right"><%= number_to_currency total %></td>
       <% end %>
     </tr>
 
     <tr><td colspan="13"></td></tr>
     <tr><td colspan="13" style="background-color:black; color:white; border-color:black">Expense</td></tr>
 
-    <% Category.all.each do |category| %>
-    <% if category.transactions.last_12_months.expense.any? %>
+    <% (@categories - ["Salary", "Interest", "Transfer"]).each do |category| %>
       <tr>
-        <td><%= category.name %></td>
-        <% @months.each do |month| %>
-          <td id="<%= month.strftime('%b') + ' ' + category.name %>" style="text-align:right"><%= number_to_currency category.transactions.for_month_of(month).sum(:amount) %></td>
+        <td><%= category %></td>
+        <% @transactions.keys.each do |month| %>
+          <td id="<%= [month, category].join(' ').parameterize %>" style="text-align:right"><%= number_to_currency @transactions[month][category] %></td>
         <% end %>
       </tr>
-    <% end %>
     <% end %>
 
     <tr>
       <td>Total</td>
-      <% @months.each do |month| %>
-        <td style="text-align:right"><%= number_to_currency Transaction.for_month_of(month).sum(:amount) %></td>
+      <% @transactions.keys.each do |month| %>
+        <% total = 0 %>
+        <% (@categories - ["Salary", "Interest", "Transfer"]).each do |category| %>
+          <% total += @transactions[month][category] if @transactions[month][category] %>
+        <% end %>
+        <td style="text-align:right"><%= number_to_currency total %></td>
       <% end %>
     </tr>
 
+    <tr><td colspan="13"></td></tr>
+    <tr>
+      <td>Net income/loss</td>
+      <% @transactions.keys.each do |month| %>
+        <% total = 0 %>
+        <% @categories.each do |category| %>
+          <% total += @transactions[month][category] if @transactions[month][category] %>
+        <% end %>
+        <td style="text-align:right"><%= number_to_currency total %></td>
+      <% end %>
+    </tr>
   </tbody>
 </table>
