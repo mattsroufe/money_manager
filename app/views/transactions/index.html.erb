@@ -1,7 +1,5 @@
+<h2 class="mt-5">Transactions</h2>
 <div class="row-fluid">
-  <div class="span3">
-    <h2>Transactions</h2>
-  </div>
   <div class="span5 offset1">
     <%= form_for transactions_path, :method => 'get', :html => { :class => "form-search", :style => "margin:15px 0 0" } do %>
       <%= text_field_tag :search, params[:search], :class => "search-query", :style => "margin-bottom:0" %>
