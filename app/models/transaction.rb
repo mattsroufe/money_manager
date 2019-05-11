@@ -1,7 +1,7 @@
 require 'csv'
 
 class Transaction < ActiveRecord::Base
-  belongs_to :category
+  belongs_to :category, optional: true
   delegate :name, :to => :category, :prefix => true, :allow_nil => true
   scope :income, -> { where("amount > 0") }
   scope :expense, -> { where("amount < 0") }
@@ -58,14 +58,14 @@ class Transaction < ActiveRecord::Base
   end
 
   def self.monthly_balances
-    transactions = Transaction.group("YEAR(date)").group("MONTH(date)").sum(:amount)
+    transactions = Transaction.group("EXTRACT(YEAR FROM date)").group("EXTRACT(MONTH FROM date)").sum(:amount)
     balance = 0
     # Hash[transactions.map { |k, v| [Date.new(k[0],k[1]).end_of_month, balance += v] }]
     transactions.map { |k, v| [Date.new(k[0],k[1]).end_of_month, balance += v] }
   end
 
   def self.monthly_cashflow
-    transactions = Transaction.group("YEAR(date)").group("MONTH(date)").sum(:amount)
+    transactions = Transaction.group("EXTRACT(YEAR FROM date)").group("EXTRACT(MONTH FROM date)").sum(:amount)
     transactions.map { |k, v| [k[1], v] }
   end
 
