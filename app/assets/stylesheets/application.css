@@ -14,3 +14,13 @@
  *= require_tree .
  *= require_self
  */
+
+ @import "chartist/dist/scss/chartist.scss";
+
+ .ct-series-a .ct-bar {
+  stroke: #0544d3;
+}
+
+.ct-series-b .ct-bar {
+  stroke: #d70206;
+}

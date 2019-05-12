@@ -1,11 +1,39 @@
 <h2>Cashflows</h2>
 
+<div class="ct-chart ct-golden-section"></div>
+
+<table class="table table-sm">
+  <thead>
+    <tr>    
+      <th></th>
+      <th>J</th>
+      <th>F</th>
+      <th>M</th>
+      <th>A</th>
+      <th>M</th>
+      <th>J</th>
+      <th>J</th>
+      <th>A</th>
+      <th>S</th>
+      <th>O</th>
+      <th>N</th>
+      <th>D</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Inc</td>
+      <td>$1,000</td>
+    </tr>
+  </tbody>
+</table>
+
+<%= javascript_pack_tag 'cashflows' %>
+
 <%= JSON.pretty_generate(@data.as_json) %>
 <%= JSON.pretty_generate(@cash_flow.as_json) %>
 
-<div id="container-line" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
-<div id="container" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
-
+<% if false %>
 <script type="text/javascript">
     $(function () {
         $('#container-line').highcharts({
@@ -121,3 +149,4 @@ $(function () {
         });
     });
 </script>
+<% end %>
