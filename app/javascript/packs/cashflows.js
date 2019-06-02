@@ -1,3 +1,4 @@
+require("bootstrap/dist/js/bootstrap")
 import Chartist from 'chartist';
 
 var data = {
@@ -32,3 +33,5 @@ var responsiveOptions = [
 ];
 
 new Chartist.Bar('.ct-chart', data, options, responsiveOptions);
+
+$('[data-toggle="popover"]').popover({trigger: 'hover', placement: 'bottom'});
