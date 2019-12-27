@@ -112,41 +112,5 @@
 //     });
 // });
 
-$(function () {
-        $('#container').highcharts({
-            chart: {
-                type: 'column'
-            },
-            title: {
-                text: 'Column chart with negative values'
-            },
-            xAxis: {
-                categories: [
-                  <% @cashflow.each do |date, value| %>
-                    <%= "#{date},".html_safe %>
-                  <% end %>                
-                ]
-            },
-            yAxis: {
-                title: {
-                    text: null
-                }
-            },
-            legend: {
-                enabled: false
-            },
-            credits: {
-                enabled: false
-            },
-            series: [{
-                name: 'Monthly cashflow',
-                data: [
-                  <% @cashflow.each do |date, value| %>
-                    <%= "#{value},".html_safe %>
-                  <% end %>
-                ]
-            }]
-        });
-    });
-</script>
+
 <% end %>

@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   get "budgets/show"
-  get "cashflows/index"
+  resources :cashflows
   resources :categories
   root :to => "transactions#index"
   resources :transactions do
