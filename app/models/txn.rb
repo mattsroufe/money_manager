@@ -9,7 +9,7 @@ class Txn < ActiveRecord::Base
 
   def self.import(file)
     CSV.foreach(file.path, :row_sep => :auto, :col_sep => ",") do |row|
-      Transaction.create! :trans_type  => row[0],
+      Txn.create! :trans_type  => row[0],
                           :details     => row[1],
                           :particulars => row[2],
                           :code        => row[3],
@@ -50,7 +50,7 @@ class Txn < ActiveRecord::Base
   end
 
   def self.daily_balances
-    transactions = Transaction.group(:date).sum(:amount)
+    transactions = Txn.group(:date).sum(:amount)
     balance = 0
     transactions.each do |date, value|
       transactions[date] = balance += value
@@ -58,14 +58,14 @@ class Txn < ActiveRecord::Base
   end
 
   def self.monthly_balances
-    transactions = Transaction.group("EXTRACT(YEAR FROM date)").group("EXTRACT(MONTH FROM date)").sum(:amount)
+    transactions = Txn.group("EXTRACT(YEAR FROM date)").group("EXTRACT(MONTH FROM date)").sum(:amount)
     balance = 0
     # Hash[transactions.map { |k, v| [Date.new(k[0],k[1]).end_of_month, balance += v] }]
     transactions.map { |k, v| [Date.new(k[0],k[1]).end_of_month, balance += v] }
   end
 
   def self.monthly_cashflow
-    transactions = Transaction.group("EXTRACT(YEAR FROM date)").group("EXTRACT(MONTH FROM date)").sum(:amount)
+    transactions = Txn.group("EXTRACT(YEAR FROM date)").group("EXTRACT(MONTH FROM date)").sum(:amount)
     transactions.map { |k, v| [k[1], v] }
   end
 
@@ -73,12 +73,12 @@ class Txn < ActiveRecord::Base
     if search
       where('details LIKE ?', "%#{search}%")
     else
-      Transaction.all
+      Txn.all
     end
   end
 
   def self.by_category(category)
-    return Transaction.where(:category_id => category) if category.present?
+    return Txn.where(:category_id => category) if category.present?
     all
   end
 end

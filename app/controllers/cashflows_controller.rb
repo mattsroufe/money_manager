@@ -1,6 +1,6 @@
 class CashflowsController < ApplicationController
   def index
-    @data = Transaction.monthly_balances
-    @cashflow = Transaction.monthly_cashflow
+    @data = Txn.monthly_balances
+    @cashflow = Txn.monthly_cashflow
   end
 end
