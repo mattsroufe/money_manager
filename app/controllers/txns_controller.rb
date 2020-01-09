@@ -3,10 +3,6 @@ class TxnsController < ApplicationController
 
   def index
     @txns = Txn.search(params[:search]).by_category(params[:category_id]).order("date DESC, amount DESC")
-    respond_to do |format|
-      format.html
-      format.js
-    end
   end
 
   def show
