@@ -1,6 +1,6 @@
 require 'csv'
 
-class Txn < ActiveRecord::Base
+class Txn < ApplicationRecord
   belongs_to :category, optional: true
   delegate :name, :to => :category, :prefix => true, :allow_nil => true
   scope :income, -> { where("amount > 0") }
