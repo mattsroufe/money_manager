@@ -1,13 +1,17 @@
-<h1><%= @account.name %><h1>
+<h1><%= @account.name %></h1>
 
-<h2>Transactions</h2>
-
-<div style="display:flex; justify-content: space-evenly">
+<div style="display:flex; justify-content: space-evenly; align-items: baseline">
+  <h2>Transactions</h2>
+  <%= link_to 'New Transaction', new_txn_path %>
+  <%= form_tag import_txns_path, multipart: true do %>
+    <%= file_field_tag "file" %>
+    <%= submit_tag "Import" %>
+  <% end %>
   <%= form_for txns_path, :method => 'get', :html => { :class => "form-search", :style => "margin:15px 0 0" } do %>
     <%= text_field_tag :search, params[:search], :class => "search-query", :style => "margin-bottom:0" %>
     <%= submit_tag "Search", :details => nil, :class => "btn" %>
   <% end %>
-  <h4 style="margin:15px 0 0">Balance: <%= number_to_currency @account.beginning_balance + @txns.sum(:amount) %></h4>
+  <h4>Balance: <%= number_to_currency @account.beginning_balance + @txns.sum(:amount) %></h4>
   <%= form_tag txns_path, :method => :get do %>
     <%= label_tag :start_date, 'start date:' %><%= text_field_tag :start_date, params[:start_date], :size => 10, :class => 'input-small' %><i id="start_date_icon" class="icon-calendar" style="margin:0 0.5em 0 1em"></i>
     <%= label_tag :end_date, 'end date:' %><%= text_field_tag :end_date, params[:end_date], :size => 10, :class => 'input-small' %><i id="end_date_icon" class="icon-calendar" style="margin:0 0.5em 0 1em"></i>
@@ -16,15 +20,5 @@
   <% end %>
 </div>
 
-<br>
-
 <%= render 'txns/txns_table' %>
 
-<%= link_to 'New Transaction', new_txn_path %>
-
-<h3>Import transactions</h3>
-
-<%= form_tag import_txns_path, multipart: true do %>
-  <%= file_field_tag "file" %>
-  <%= submit_tag "Import", class: "btn btn-primary" %>
-<% end %>
