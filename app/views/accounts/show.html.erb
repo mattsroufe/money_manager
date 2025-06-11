@@ -7,14 +7,14 @@
     <%= file_field_tag "file" %>
     <%= submit_tag "Import" %>
   <% end %>
-  <%= form_for txns_path, :method => 'get', :html => { :class => "form-search", :style => "margin:15px 0 0" } do %>
-    <%= text_field_tag :search, params[:search], :class => "search-query", :style => "margin-bottom:0" %>
-    <%= submit_tag "Search", :details => nil, :class => "btn" %>
+  <%= form_for @account, :method => 'get', :html => { :class => "form-search", :style => "margin:15px 0 0" } do %>
+    <%= text_field_tag :search, params[:search], type: 'search' %>
+    <%= submit_tag "Search" %>
   <% end %>
   <h4>Balance: <%= number_to_currency @account.beginning_balance + @txns.sum(:amount) %></h4>
-  <%= form_tag txns_path, :method => :get do %>
-    <%= label_tag :start_date, 'start date:' %><%= text_field_tag :start_date, params[:start_date], :size => 10, :class => 'input-small' %><i id="start_date_icon" class="icon-calendar" style="margin:0 0.5em 0 1em"></i>
-    <%= label_tag :end_date, 'end date:' %><%= text_field_tag :end_date, params[:end_date], :size => 10, :class => 'input-small' %><i id="end_date_icon" class="icon-calendar" style="margin:0 0.5em 0 1em"></i>
+  <%= form_tag @account, :method => :get do %>
+    <%= label_tag :start_date, 'start date:' %><%= date_field_tag :start_date, params[:start_date], :size => 10, :class => 'input-small' %><i id="start_date_icon" class="icon-calendar" style="margin:0 0.5em 0 1em"></i>
+    <%= label_tag :end_date, 'end date:' %><%= date_field_tag :end_date, params[:end_date], :size => 10, :class => 'input-small' %><i id="end_date_icon" class="icon-calendar" style="margin:0 0.5em 0 1em"></i>
     <%= submit_tag 'Filter', :id => 'date_filter_submit' %>
     <a href="#" id="clear_date_filters">clear</a>
   <% end %>
