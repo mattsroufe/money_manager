@@ -10,12 +10,13 @@ Rails.application.routes.draw do
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   # Defines the root path route ("/")
-  root "txns#index"
+  root "accounts#index"
 
   get "budgets/show"
-  resources :cashflows
-  resources :categories
+  resources :accounts
   resources :txns do
     collection { post :import }
   end
+  resources :cashflows
+  resources :categories
 end
